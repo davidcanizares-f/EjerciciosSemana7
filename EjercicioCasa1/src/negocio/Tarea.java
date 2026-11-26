@@ -37,7 +37,7 @@ public class Tarea {
         String estado = completada ? "Completada" : "Pendiente";
         return "Codigo : " + codigo + "\n"
                 + "Titulo : " + titulo + "\n"
-                + "Horas  : " + horas + " h\n"
+                + "Horas: " + horas + " h\n"
                 + "Estado : " + estado + "\n"
                 + "----------------------------\n";
     }

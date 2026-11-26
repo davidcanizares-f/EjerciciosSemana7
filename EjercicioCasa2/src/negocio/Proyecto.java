@@ -24,8 +24,8 @@ public class Proyecto {
     }
 
     public String mostrarInformacion() {
-        return "Codigo      : " + codigo + "\n"
-                + "Nombre      : " + nombre + "\n"
+        return "Codigo: " + codigo + "\n"
+                + "Nombre: " + nombre + "\n"
                 + "Presupuesto : $" + presupuesto + "\n"
                 + "----------------------------\n";
     }

@@ -4,7 +4,7 @@ import negocio.Proyecto;
 import negocio.EmpresaSoftware;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main() {
         Scanner sc = new Scanner(System.in);
         final int CANTIDAD = 4;
         Proyecto[] creados = new Proyecto[CANTIDAD];
