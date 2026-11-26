@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(){
-        final int CANTIDAD = 2;
+        final int CANTIDAD = 3;
         Scanner sc = new Scanner(System.in);
         Desarrollador[] creados = new Desarrollador[CANTIDAD];
         System.out.println("Ingrese los datos de " + CANTIDAD + " desarrolladores.");
