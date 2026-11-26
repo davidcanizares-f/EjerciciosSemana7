@@ -20,8 +20,8 @@ public class Desarrollador {
     public double getHorasAsignadas() {
         return horasAsignadas;
     }
-
     public String mostrarInformacion() {
-        return identificacion + " - " + nombre + " - " + especialidad + " - " + horasAsignadas + " h";
+        return "Desarrollador [Identificacion:" + identificacion + ", Nombre:" + nombre
+                + ", Especialidad:" + especialidad + ", Horas Asignadas=" + horasAsignadas + "]";
     }
 }

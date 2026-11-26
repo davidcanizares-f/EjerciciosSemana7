@@ -6,66 +6,85 @@ import negocio.Proyecto;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+
+    public static void main(){
+        final int CANTIDAD = 2;
         Scanner sc = new Scanner(System.in);
-
-        System.out.print("Nombre del proyecto: ");
-        Proyecto proyecto = new Proyecto(sc.nextLine());
-
-        System.out.println("Equipo inicial:");
-        System.out.print(proyecto.mostrarEquipo());
-
-        Desarrollador[] creados = new Desarrollador[3];
-        for (int i = 0; i < creados.length; i++) {
-            System.out.println();
-            System.out.println("Desarrollador " + (i + 1));
-            System.out.print("Identificacion: ");
-            String id = sc.nextLine();
-            System.out.print("Nombre: ");
+        Desarrollador[] creados = new Desarrollador[CANTIDAD];
+        System.out.println("Ingrese los datos de " + CANTIDAD + " desarrolladores.");
+        for(int i = 0; i < creados.length; i++){
+            System.out.println("- Desarrollador " + (i+1));
+            System.out.print("> Identificacion: ");
+            String identificacion = sc.nextLine();
+            System.out.print("> Nombre: ");
             String nombre = sc.nextLine();
-            System.out.print("Especialidad: ");
+            System.out.print("> Especialidad: ");
             String especialidad = sc.nextLine();
-            System.out.print("Horas asignadas: ");
-            double horas = sc.nextDouble();
-            sc.nextLine();
-            creados[i] = new Desarrollador(id, nombre, especialidad, horas);
+            System.out.print("> Horas Asignadas: ");
+            int horas = Integer.parseInt(sc.nextLine());
+
+            creados[i] = new Desarrollador(identificacion, nombre, especialidad, horas);
+        }
+        System.out.print("Ingrese el nombre del Proyecto: ");
+        String nombreProyecto = sc.nextLine();
+        Proyecto proyecto = new Proyecto(nombreProyecto);
+        System.out.println("\n=== PRUEBAS ===");
+        System.out.println("Desarrolladores al inicio: " + proyecto.cantidadDesarrolladores());
+        if (proyecto.mostrarEquipo().equals("")) {
+            System.out.println("El proyecto esta vacio.");
         }
 
-        for (int i = 0; i < creados.length; i++) {
+        for (int i = 0; i < CANTIDAD; i++) {
             proyecto.agregarDesarrollador(creados[i]);
         }
-
-        System.out.println();
+        System.out.println("\nDesarrolladores despues de agregar: " + proyecto.cantidadDesarrolladores());
+        System.out.println("Equipo:");
         System.out.print(proyecto.mostrarEquipo());
-        System.out.println("Total de horas: " + proyecto.calcularTotalHoras());
 
-        System.out.print("Identificacion a buscar: ");
-        String buscada = sc.nextLine();
-        Desarrollador encontrado = proyecto.buscarDesarrollador(buscada);
-        if (encontrado != null) {
-            System.out.println("Encontrado: " + encontrado.mostrarInformacion());
+        System.out.print("\nIdentificacion a buscar (existente): ");
+        String id1 = sc.nextLine();
+        Desarrollador d1 = proyecto.buscarDesarrollador(id1);
+        if (d1 != null) {
+            System.out.println("Encontrado: " + d1.mostrarInformacion());
         } else {
-            System.out.println("No existe un desarrollador con la identificacion " + buscada);
+            System.out.println("No se encontro el desarrollador " + id1);
         }
 
-        System.out.print("Identificacion a eliminar: ");
-        String eliminar = sc.nextLine();
-        if (proyecto.eliminarDesarrollador(eliminar)) {
-            System.out.println("Desarrollador eliminado");
+        System.out.print("Identificacion a buscar (inexistente): ");
+        String id2 = sc.nextLine();
+        Desarrollador d2 = proyecto.buscarDesarrollador(id2);
+        if (d2 != null) {
+            System.out.println("Encontrado: " + d2.mostrarInformacion());
         } else {
-            System.out.println("No se pudo eliminar, identificacion inexistente");
+            System.out.println("No se encontro el desarrollador " + id2);
         }
 
-        System.out.println();
-        System.out.print(proyecto.mostrarEquipo());
-        System.out.println("Desarrolladores en el proyecto: " + proyecto.cantidadDesarrolladores());
-        System.out.println("Total de horas: " + proyecto.calcularTotalHoras());
-
+        System.out.println("\nHoras totales: " + proyecto.calcularTotalHoras());
         Desarrollador mayor = proyecto.obtenerMayorCarga();
-        if (mayor != null) {
+        if (mayor != null){
             System.out.println("Mayor carga: " + mayor.mostrarInformacion());
+        } else {
+            System.out.println("No hay desarrolladores en el proyecto.");
         }
 
+        System.out.print("\nIdentificacion a eliminar: ");
+        String idEliminar = sc.nextLine();
+        if (proyecto.eliminarDesarrollador(idEliminar)) {
+            System.out.println("Desarrollador " + idEliminar + " eliminado del proyecto.");
+        } else {
+            System.out.println("No se pudo eliminar: no existe " + idEliminar);
+        }
+        System.out.println("Desarrolladores despues de eliminar: " + proyecto.cantidadDesarrolladores());
+        System.out.println("Equipo actual:");
+        System.out.print(proyecto.mostrarEquipo());
+        System.out.println("Horas totales actuales: " + proyecto.calcularTotalHoras());
+
+        System.out.println("\nEl objeto eliminado sigue existiendo fuera del proyecto:");
+        for (int i = 0; i < CANTIDAD; i++) {
+            if (creados[i].getIdentificacion().equals(idEliminar)) {
+                System.out.println(creados[i].mostrarInformacion());
+            }
+        }
         sc.close();
     }
 }
